@@ -1,0 +1,30 @@
+/*-----foot.html-----*/
+body{
+	margin: 0; 
+	padding: 0;
+}
+.foot{
+		background: #333333;
+		height: 26px;
+		text-align: center;
+}
+
+.foot span{
+		font-size: 12px;
+		color: #dadada;
+		line-height: 25px;
+		font-family: "Microsoft YaHei";
+}
+
+
+#switchpic {
+	width: 6px;
+	cursor:pointer;
+	clear: both;
+	vertical-align: bottom;
+	margin-top: 220px;
+}
+
+#switchpic img{
+	border: none;
+}

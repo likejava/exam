@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="dialect">
+        	org.hibernate.dialect.MySQLDialect</property>		<!-- 数据库方言 -->
+        <property name="connection.url">
+        	jdbc:mysql://117.169.32.156:3306/db_examsystem</property><!-- 数据库连接URL -->
+        <property name="connection.username">root</property>	<!-- 数据库用户名 -->
+        <property name="connection.password">123123</property>	<!-- 数据库用户密码 -->
+        <property name="connection.driver_class">				<!-- 数据库驱动类 -->
+        	com.mysql.jdbc.Driver</property>
+        
+        
+        <!-- 配置连接池 -->  
+        <property name="hibernate.connection.provider_class">  
+               org.hibernate.connection.C3P0ConnectionProvider  
+            </property>  
+            <property name="c3p0.acquire_increment">1</property>  
+            <property name="c3p0.idle_test_period">300</property>  
+            <property name="c3p0.max_size">20</property>  
+           <property name="c3p0.max_statements">100</property>  
+            <property name="c3p0.min_size">5</property>  
+            <property name="c3p0.timeout">90</property>  
+            <property name="c3p0.preferredTestQuery ">select 1 from user where id=1</property>
+            <property name="c3p0.idleConnectionTestPeriod ">18000</property>             
+           <property name="c3p0.maxIdleTime">25000</property>           
+           <property name="c3p0.testConnectionOnCheckout">true</property> 	
+        	
+		<mapping resource="com/cmcc/ict/exam/po/Teacher.hbm.xml"/>
+        <mapping resource="com/cmcc/ict/exam/po/Subject.hbm.xml"/>
+        <mapping resource="com/cmcc/ict/exam/po/Examination.hbm.xml"/>
+        <mapping resource="com/cmcc/ict/exam/po/Result.hbm.xml"/>
+        <mapping resource="com/cmcc/ict/exam/po/ExamResult.hbm.xml"/>
+        <mapping resource="com/cmcc/ict/exam/po/Question.hbm.xml"/>
+        <mapping resource="com/cmcc/ict/exam/po/ExamStart.hbm.xml"/>
+    </session-factory>
+</hibernate-configuration>

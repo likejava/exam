@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping 
+			PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.cmcc.ict.exam.po.ExamStart" table="tb_examstart"><!-- 每个class对应一个持久化对象 -->
+		<id name="id" ><!-- id元素用来定义主键标识,并指定主键生成策略 -->
+			<generator class="identity"></generator>
+		</id>
+		<property name="examId"></property>
+		<property name="mobile"></property>
+		<property name="name"></property>
+		<property name="createTime"></property>
+	</class>	
+</hibernate-mapping>

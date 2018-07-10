@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?><!-- XML声明 -->
+<!DOCTYPE struts PUBLIC
+ "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+ "http://struts.apache.org/dtds/struts-2.1.dtd"><!-- 指定Struts 2配置文件的DTD信息 -->
+<struts><!-- 根节点 -->
+	<constant name="struts.i18n.encoding" value="gb2312"></constant>
+	<package name="struts2" extends="struts-default">
+ 		<action name="login" class="com.cmcc.ict.exam.action.LoginAction">
+ 			<result name="studentSuccess" type="chain">getRandomSubject</result><!--进入考试页面-->
+ 			<result name="teacherSuccess" type="redirect">/admin/index_new.jsp</result><!--老师登录成功页面-->
+ 			<result name="input">/login_new.jsp</result><!--登录失败页面-->
+ 		</action>
+ 		<action name="getRandomSubject" class="com.cmcc.ict.exam.action.GetRandomSubject">
+ 			<result name="success">/user/index.jsp</result><!--跳转到考试页面-->
+ 		</action>
+
+ 		<action name="showSubjectAnswer" class="com.cmcc.ict.exam.action.ShowSubjectAnswer">
+ 			<result name="success">/user/showAnswer.jsp</result><!--跳转到考试页面-->
+ 		</action>
+		<action name="examinationList" class="com.cmcc.ict.exam.action.ExaminationAction" method="list">
+			<result name="success"  >/admin/examinationList_new.jsp</result><!--重定向到试题添加页面-->
+		</action>
+		<action name="examinationResultList" class="com.cmcc.ict.exam.action.ExaminationAction" method="listForResult">
+			<result name="success"  >/admin/examinationResultList_new.jsp</result><!--给成绩查询做的试卷列表接口-->
+		</action>
+ 		<action name="examinationAdd" class="com.cmcc.ict.exam.action.ExaminationAction" method="add">
+ 			<result name="toExamList" type="chain" >examinationList</result><!--重定向到试题添加页面-->
+  			<result name="toSubjectList">/admin/subjectManage_new.jsp</result>
+ 		 	<result name="input">/admin/examinationAdd_new.jsp</result>
+ 		</action>
+ 		<action name="examinationToUpdate" class="com.cmcc.ict.exam.action.ExaminationAction" method="toUpdate">
+ 			<result name="success"  >/admin/examinationUpdate.jsp</result><!--重定向到试题添加页面-->
+ 		</action>
+ 		<action name="examinationUpdate" class="com.cmcc.ict.exam.action.ExaminationAction" method="update">
+ 			<result name="success" type="chain" >examinationList</result><!--重定向到试题添加页面-->
+ 		 	<result name="input">/admin/examinationUpdate.jsp</result><!--重定向到试题添加页面-->
+ 		</action>
+ 		<action name="examinationDelete" class="com.cmcc.ict.exam.action.ExaminationAction" method="delete">
+ 			<result name="success" type="chain" >examinationList</result><!--重定向到试题添加页面-->
+ 		</action>
+ 		<action name="submitExam" class="com.cmcc.ict.exam.action.ExaminationAction" method="submitExam">
+ 			<result name="success">/user/examResult_new.jsp</result><!--跳转到考试页面-->
+ 			<result name="already">/user/examalreadyResult.jsp</result><!--跳转到考试页面-->
+			<result name="empty">/user/examemptyResult.jsp</result>
+ 		</action>
+ 		<action name="subjectListByExamId" class="com.cmcc.ict.exam.action.SubjectAction" method="listByExamId">
+ 	 			<result name="success" >/admin/subjectManage_new.jsp</result><!--重定向到试题添加页面-->
+ 		</action>
+ 	 	<action name="subjectAdd" class="com.cmcc.ict.exam.action.SubjectAction" method="add">
+ 	 		<result name="success" type="chain" >subjectListByExamId</result><!--重定向到试题添加页面-->
+ 		  	<result name="input" >/admin/subjectAdd_new.jsp</result><!--重定向到试题添加页面-->
+ 		</action>	
+ 		<action name="subjectToAdd" class="com.cmcc.ict.exam.action.SubjectAction" method="toAdd">
+ 	 		<result name="success" >/admin/subjectAdd_new.jsp</result><!--重定向到试题添加页面-->
+ 		</action>
+ 		<action name="subjectToUpdate" class="com.cmcc.ict.exam.action.SubjectAction" method="toUpdate">
+ 	 		<result name="success" >/admin/subjectUpdate_new.jsp</result><!--重定向到试题添加页面-->
+ 		</action>
+ 		<action name="subjectUpdate" class="com.cmcc.ict.exam.action.SubjectAction" method="update">
+ 	 		<result name="success" type="chain">subjectListByExamId</result><!--重定向到试题添加页面-->
+ 		</action>
+ 		<action name="subjectDelete" class="com.cmcc.ict.exam.action.SubjectAction" method="delete">
+ 	 		<result name="success" type="chain">subjectListByExamId</result><!--重定向到试题添加页面-->
+ 		</action>	
+ 		<action name="subjectView" class="com.cmcc.ict.exam.action.SubjectAction" method="view">
+ 			<result name="success">/admin/subjectShow_new.jsp</result><!--跳转到试题详细显示页面-->
+ 		</action>
+ 		<action name="subjectToImport" class="com.cmcc.ict.exam.action.SubjectAction" method="toImport">
+ 			<result name="success">/admin/importSubject_new.jsp</result><!--跳转到试题详细显示页面-->
+ 		</action>
+ 		<action name="subjectImport" class="com.cmcc.ict.exam.action.SubjectAction" method="importSubject">
+ 			<interceptor-ref name="fileUploadStack">
+                <param name="fileUpload.allowedExtensions">.xls,.xlsx</param>
+                <!-- <param name="fileUpload.allowedTypes">application/excel</param> -->
+                <param name="fileUpload.useActionMessageBundle">true</param>
+            </interceptor-ref>
+ 			<result name="success">/admin/importSubjectResult_new.jsp</result><!--跳转到试题详细显示页面-->
+ 		</action>
+ 		<action name="subjectSearch" class="com.cmcc.ict.exam.action.SubjectAction" method="search">
+ 			<result name="success">/admin/subjectManage_new.jsp</result><!--跳转到试题详细显示页面-->
+ 		</action>
+ 		<action name="toQuestionList" class="com.cmcc.ict.exam.action.SubjectAction" method="toQuestionList">
+ 			<result name="success">/admin/questionToExam.jsp</result><!--跳转到试题详细显示页面-->
+ 		</action> 
+ 		<action name="questionListSearch" class="com.cmcc.ict.exam.action.SubjectAction" method="questionListSearch">
+ 		 	<result name="success">/admin/questionToExam.jsp</result><!--跳转到试题详细显示页面-->
+ 		</action>
+ 		<action name="addToExam" class="com.cmcc.ict.exam.action.SubjectAction" method="addToExam">
+ 		</action>
+ 		<action name="addRandomSubject" class="com.cmcc.ict.exam.action.SubjectAction" method="addRandomSubject">
+ 			<result name="success" type="chain" >subjectListByExamId</result><!--重定向到试题添加页面-->
+ 		</action>
+ 		<action name="generalExamination" class="com.cmcc.ict.exam.action.ExaminationAction" method="getGeneralSubjects">
+ 			<result name="success">/user/index_new.jsp</result><!--跳转到试题详细显示页面-->
+ 		</action> 
+ 		<action name="randomExamination" class="com.cmcc.ict.exam.action.ExaminationAction" method="getRandomSubjects">
+ 			<result name="success">/user/index_new.jsp</result><!--跳转到试题详细显示页面-->
+ 		</action>	
+ 		<action name="listExamResults" class="com.cmcc.ict.exam.action.ResultAction" method="listExamResults">
+ 			<result name="success">/admin/examResultList_new.jsp</result><!--跳转到试题详细显示页面-->
+ 		</action> 
+ 		<action name="examResultSearch" class="com.cmcc.ict.exam.action.ResultAction" method="search">
+ 			<result name="success">/admin/examResultList.jsp</result><!--跳转到试题详细显示页面-->
+ 		</action> 
+ 		<action name="resultDetail" class="com.cmcc.ict.exam.action.ResultAction" method="resultDetail">
+ 			<result name="success">/admin/resultDetail_new.jsp</result><!--跳转到试题详细显示页面-->
+ 		</action> 
+ 		<action name="queryExamDetail" class="com.cmcc.ict.exam.action.ResultAction" method="queryExamDetail">
+ 		</action> 
+ 		<action name="queryResult" class="com.cmcc.ict.exam.action.ResultAction" method="queryResult">
+ 		</action>
+ 		<!-- 题库begin -->
+ 		<action name="questionList" class="com.cmcc.ict.exam.action.QuestionAction" method="list">
+ 	 			<result name="success" >/admin/questionManage.jsp</result><!--重定向到试题添加页面-->
+ 		</action>
+ 		<action name="questionAdd" class="com.cmcc.ict.exam.action.QuestionAction" method="add">
+ 	 		<result name="success" type="chain" >questionList</result><!--重定向到试题添加页面-->
+ 		  	<result name="input" >/admin/questionAdd.jsp</result><!--重定向到试题添加页面-->
+ 		</action>	
+ 		<action name="questionToUpdate" class="com.cmcc.ict.exam.action.QuestionAction" method="toUpdate">
+ 	 		<result name="success" >/admin/questionUpdate.jsp</result><!--重定向到试题添加页面-->
+ 		</action>
+ 		<action name="questionUpdate" class="com.cmcc.ict.exam.action.QuestionAction" method="update">
+ 	 		<result name="success" type="chain">questionList</result><!--重定向到试题添加页面-->
+ 		</action>
+ 		<action name="questionDelete" class="com.cmcc.ict.exam.action.QuestionAction" method="delete">
+ 	 		<result name="success" type="chain">questionList</result><!--重定向到试题添加页面-->
+ 		</action>	
+ 		<action name="questionView" class="com.cmcc.ict.exam.action.QuestionAction" method="view">
+ 			<result name="success">/admin/questionShow.jsp</result><!--跳转到试题详细显示页面-->
+ 		</action>
+ 		<action name="questionToImport" class="com.cmcc.ict.exam.action.QuestionAction" method="toImport">
+ 			<result name="success">/admin/questionImport.jsp</result><!--跳转到试题详细显示页面-->
+ 		</action>
+ 		<action name="questionImport" class="com.cmcc.ict.exam.action.QuestionAction" method="importSubject">
+ 			<interceptor-ref name="fileUploadStack">
+                <param name="fileUpload.allowedExtensions">.xls,.xlsx</param>
+                <!-- <param name="fileUpload.allowedTypes">application/excel</param> -->
+                <param name="fileUpload.useActionMessageBundle">true</param>
+            </interceptor-ref>
+ 			<result name="success">/admin/questionImportResult.jsp</result><!--跳转到试题详细显示页面-->
+ 		</action>
+ 		<action name="questionSearch" class="com.cmcc.ict.exam.action.QuestionAction" method="search">
+ 			<result name="success">/admin/questionManage.jsp</result><!--跳转到试题详细显示页面-->
+ 		</action>
+ 		 <action name="checkExamStatus" class="com.cmcc.ict.exam.action.ExaminationAction" method="checkExamStatus"/>
+ 		<!-- 题库end -->
+ 	</package>
+ 	<constant name="struts.multipart.maxSize" value="10485760"/> 	
+</struts>

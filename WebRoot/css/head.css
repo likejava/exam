@@ -1,0 +1,142 @@
+/*---by:liminghai---
+-----time:2012--3-24---
+-----readme: about all the iframe's head css---*/
+
+body{
+		margin: 0; 
+		padding: 0;
+}
+a {
+	color: #2e7dc6;
+	text-decoration: none;
+}
+
+.head_container {
+	border-top: 4px solid #337ab7;
+  	/*border-bottom: 7px solid #67AD03;*/
+  	position: relative;
+  	background-color: #f3f3f3;
+  	z-index: 1;
+  	box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
+  	-moz-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
+  	-webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
+}
+/*
+.head_container{
+		background: url(../images/b_head_bg.jpg) repeat-x;
+}
+*/
+/*--------head.html------*/
+
+.container{
+		
+		height: 65px;
+		position: relative;
+}
+
+.logo{
+	/*padding:6px;*/
+	margin-top:12px;
+}
+
+
+/*---------------
+.re_index{
+	position: absolute;
+	top: 10px;
+	left: 15px;
+	height: 35px;
+	width: 430px;
+	cursor: pointer;
+}
+.nav{
+		height: 63px;
+		
+}
+.nav ul{
+		padding: 28px 0 0 0;
+		margin: 0 35px 0 20px;
+		list-style: none;
+		height: 26px;
+}
+.nav ul li{
+		float: right;
+		margin: 0 12px;
+		color: #eee;
+		font-size: 12px;
+}
+.nav ul li a{
+		color: #ff0;
+		font-size: 14px;
+		text-decoration: none;
+		line-height: 28px;
+		font-weight: bold;
+		margin: 0 5px 0 0px;
+}
+.nav ul li a:hover{
+		text-decoration: underline;
+		
+}
+/*-----------------------------------------------------------------*/
+
+.sec_nav{
+	position: absolute;
+	top: 0px;
+	right: 30px;
+	margin-top: 20px;
+}
+.sec_nav label{
+	color: #555;
+	font-size: 13px;
+	font-family: "Microsoft YaHei";
+}
+.sec_nav label a{
+	cursor: pointer;
+	margin: 0 6px;
+	font-size: 13px;
+	color: #555;
+	font-family: "Microsoft YaHei";
+}
+.sec_nav label a:hover{
+	text-decoration: none;
+}
+/*---------------------------快捷菜单-----------------------------*/
+/*------------------------------5-1-----------------------------------------------------*/
+/*----real fast menu------*/
+/*--------------------add_menu_content_----------------------*/
+.add_menu{
+		margin: 6px 0 0 0;
+		border: 1px solid #ddd;
+		background: #fff url(../images/add_menu_bg.jpg) no-repeat left center;
+		position: relative;
+		float: left;
+		display: none;
+}
+.add_menu span{
+		color: #fff;
+		font-size: 12px;
+		display: block;
+		background: #ff6600;
+		width: 67px;
+		float: left;
+		height: 70px;
+		line-height: 70px;
+		padding: 0 0 0 20px;
+		margin: 0 10px 0 0;
+}
+.add_menu ul{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+.add_menu ul li{
+	float: left;
+	margin: 6px 6px 0 6px;
+	line-height: 15px;
+	display: block;
+	width: 80px;
+}
+.add_menu ul li a{
+	color: #009;
+	font-size: 12px;
+}
