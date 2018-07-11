@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="gbk">
+    <title>扫黑除恶在线答题</title>
+    <meta http-equiv="content-type" content="text/html; charset=gbk">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+    <meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <script src="js/jquery.1.11.1.js"></script>
+
+    <style>
+    html, body {
+        position: relative;
+        height: 100%;
+    }
+    body {
+        background: #eee;
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        color:#000;
+        margin: 0;
+        padding: 0;
+    }
+    .swiper-container {
+        width: 100%;
+        height: 1024px;
+        background-image:url('images/bg.png'); 
+        background-repeat:no-repeat; 
+        background-size: 100% 100%;  
+			  -moz-background-size: 100% 100%;  
+			  -webkit-background-size: 100% 100%;
+			  text-align:center;
+    }
+    .bt-container {
+        width: 70%;
+        height: 50px;
+        position:absolute;
+        left:50%;
+        top:51%;
+        margin-left: -35%;
+        margin-top:-5%;
+        background-image:url('images/bt.png'); 
+        background-repeat:no-repeat; 
+        background-size: 100% 100%;  
+    }
+    .input-container{
+    	  width: 80%;
+        height: 30px;
+        position:absolute;
+        left:50%;
+        top:50%;
+        margin-left: -40%;
+        margin-top:-35%; 
+        text-align:center;
+    }
+	@-webkit-keyframes upward-move{
+	0%{bottom:10px;opacity:0}
+	50%{bottom:15px;opacity:1}
+	100%{bottom:20px;opacity:0}
+	} 
+	
+	@-webkit-keyframes upward-move{
+	0%{bottom:10px;opacity:0}
+	50%{bottom:15px;opacity:1}
+	100%{bottom:20px;opacity:0}
+	}
+	
+	#mobile_no{
+		border:2px solid #fff589;
+		background:none;
+		width:55%;
+		height:30px;
+		border-radius:12px;
+		color:#000000;
+		padding-left:12px;
+		font-size:24px;
+	}
+	#name{
+		border:2px solid #fff589;
+		background:none;
+		width:55%;
+		height:30px;
+		border-radius:12px;
+		color:#000000;
+		padding-left:12px;
+		font-size:24px;
+	}
+   
+    </style>
+
+</head>
+<body>
+    <!-- Swiper -->
+    <div class="swiper-container">
+    		<div class="input-container">
+    			<span style="font-size:24px;color:#ff0000;">姓&nbsp;&nbsp;&nbsp;&nbsp;名：</span>
+    			<input type="text" name="name" id="name"/></br></br>
+    			<span style="font-size:24px;color:#ff0000;">手机号：</span>
+    			<input type="number" name="mobile_no" id="mobile_no" oninput="if(value.length>11)value=value.slice(0,11)"/>
+    		</div>
+        <div class="bt-container"></div>
+    </div>
+    <!-- JS遮罩层 -->
+	<div id="overlay" style="display:none;z-index:888;"  onclick="unOverlay();"></div>
+
+	<div id="loading" style="z-index:999;display:none;position:fixed;top:5px;left:10%;">
+		<img src="images/tip.png" width="100%" style="z-index:999;"/>
+	</div>
+	<!-- end JS遮罩层 -->  
+
+    
+   <script type="text/javascript">
+  	$(".bt-container").click(function(){
+  		var mobile_no = $("#mobile_no").val();
+  		var cname = $("#name").val();
+  		if(mobile_no && mobile_no.length == 11 && mobile_no.indexOf('1')==0){
+  				$.ajax({
+						type: 'get',
+						url: 'http://117.169.32.156:8888/exam/checkExamStatus.action?examId=135&mobile='+mobile_no,
+						dataType: "json",
+						success: function(data) {
+							try{
+								if(data.result_code == "0"){
+										if(cname){
+											window.location.href = "http://117.169.32.156:8888/exam/randomExamination.action?examId=135&mobile="+mobile_no+"&name="+encodeURIComponent(encodeURIComponent(cname));
+										}else{
+												alert('请填写您的姓名');	
+										}
+								}else{
+									alert('服务器开小差了，稍后再试！')
+								}
+							}catch(e){
+								alert('服务器开小差了，稍后再试！')
+							}
+						}
+					});
+  		}else{
+  			alert("请输入您的手机号码参与答题");
+  		}
+  	});
+    
+    //打开遮罩层share
+		function getOverlay() {
+			var docHeight = $(document).height();
+
+			$("#overlay").css({
+				'display' : 'block',
+				'opacity' : 0.7,
+				'position' : 'absolute',
+				'top' : 0,
+				'left' : 0,
+				'background-color' : '#000000',
+				'width' : '100%',
+				'height' : docHeight
+			});
+
+			$("#loading").css({
+				'display' : ''
+			});
+		}
+
+		//关闭遮罩层share
+		function unOverlay() {
+			var docHeight = $(document).height();
+
+			$("#overlay").height(docHeight).css({
+				'display' : 'none'
+			});
+
+			$("#loading").css({
+				'display' : 'none'
+			});
+		}            
+    function is_weixin()
+    {
+		var ua = navigator.userAgent.toLowerCase();
+		if(ua.match(/MicroMessenger/i)=="micromessenger") {
+			return true;
+		} else {
+			return false;
+		}
+    }
+    $(document).ready(function(){
+    	if (is_weixin() == true) 
+		{
+		    getOverlay();
+		}
+    });
+  </script>
+</body>
+</html>
